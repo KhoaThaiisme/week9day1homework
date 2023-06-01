@@ -1,20 +1,41 @@
+import { useState, useEffect } from 'react';
+import Spinner from 'react-bootstrap/Spinner';
 import Character from "../components/Character";
+import Body from '../components/Body';
+import { Characterable } from '../components/Character';
 
+const api = import.meta.env.VITE_APP_BASE_API
 
 export default function DashBoard () {
-    const chaArr = [
-        {id: 1, name: "Harry Potter", img:"https://ik.imagekit.io/hpapi/harry.jpg"},
-        {id: 2, name: "Hermione Granger", img:"https://ik.imagekit.io/hpapi/hermione.jpeg"},
-        {id: 3, name: "Ron Weasley", img:"https://ik.imagekit.io/hpapi/ron.jpg"}
-    ]
+    const [charactersArray, setCharactersArray] = useState<Characterable[]>([])
+
+    useEffect(() => {
+        (async () => {
+            const res = await fetch(`${api}/characters`)
+            if (res.ok) {
+                const data = await res.json()
+                setCharactersArray(data)
+                // console.log(data)
+            }
+        })()
+    },[])
+    
     return (
-        <div>
-            {chaArr.map((c) => {
+        <>
+        <Body sidebar>
+            {charactersArray.length === 0 ? (
+            <Spinner animation='border'/>) : (
+                <>
+            {charactersArray.length === 10} : {charactersArray.map((c) => {
+                
                 return <Character
-                    key={c.id.toString()}
+                    key={c.id}
                     char={c}
-                />
+                /> 
             })}
-        </div>
+            </>
+        )}
+        </Body>
+        </>
     )
 }

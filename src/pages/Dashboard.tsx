@@ -26,7 +26,7 @@ export default function DashBoard () {
             {charactersArray.length === 0 ? (
             <Spinner animation='border'/>) : (
                 <>
-            {charactersArray.length === 10} : {charactersArray.map((c) => {
+            {charactersArray.slice(0,10).map((c) => {
                 
                 return <Character
                     key={c.id}

@@ -8,7 +8,7 @@ export interface Characterable {
     image: string
 }
 
-interface Charops {
+export interface Charops {
     key: string,
     char: Characterable
 }

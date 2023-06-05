@@ -22,7 +22,7 @@ export default function DashBoard () {
     
     return (
         <>
-        <Body sidebar>
+        <Body sidebar makePost>
             {charactersArray.length === 0 ? (
             <Spinner animation='border'/>) : (
                 <>

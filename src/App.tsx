@@ -5,6 +5,7 @@ import Header from './components/Header'
 import DashBoard from './pages/Dashboard'
 import DetailsPage from './pages/DetailsPage';
 import LoginPage from './pages/LoginPage';
+import Register from './pages/Register';
  
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
           <Route path='/' element={<DashBoard />}/>
           <Route path='/character/:id' element={ <DetailsPage />}/>
           <Route path='/login' element={ <LoginPage />}/>
+          <Route path='/register' element={ <Register />}/>
           <Route path='*' element={ <Navigate to='/' />}/>
         </Routes>
       </BrowserRouter>

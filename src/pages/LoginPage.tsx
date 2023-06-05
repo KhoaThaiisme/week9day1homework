@@ -3,7 +3,7 @@ import Body from '../components/Body';
 import { AuthContext } from '../contexts/UserProvider';
 import { useNavigate } from 'react-router-dom';
 
-// const base_api_url = import.meta.env.VITE_APP_BASE_API
+const base_api_url = import.meta.env.VITE_APP_BASE_API2
 
 export default function LoginPage() {
   const usernameField = useRef<HTMLInputElement>(null)
@@ -12,12 +12,16 @@ export default function LoginPage() {
   const navigate = useNavigate()
   
   useEffect(()=>{
-    if(user.token) navigate('/')
+    if(user.token) {
+      localStorage.setItem('token',JSON.stringify(user.token))
+      localStorage.setItem('username',JSON.stringify(user.username))
+      }
+    if(user.token || localStorage.getItem('token')) navigate('/')
   },[user])
   
   async function handleLoginForm(e:React.FormEvent<HTMLFormElement>){
     e.preventDefault()
-    const res = await fetch(`https://matrix-116-fakebook.onrender.com/api/verifyuser`,{
+    const res = await fetch(`${base_api_url}/verifyuser`,{
       method : "POST",
       headers : {
         'Content-Type' : 'application/json'
@@ -31,15 +35,14 @@ export default function LoginPage() {
       const data = await res.json()
       console.log(data)
       setUser({
-        username:String(usernameField.current?.value),
-        token:data[0]['user token'],
-        loggedIn:true
+        loggedIn:true, 
+        username:usernameField.current?.value || '',
+        token:data[0]['user token']
       })
     }
   }
   
   return (
-    <>
     <Body makepost={false} sidebar={ false }>
       <h2>LoginPage</h2>
       <form onSubmit={handleLoginForm}>
@@ -52,6 +55,5 @@ export default function LoginPage() {
         <button>Sign In</button>
       </form>
     </Body>
-    </>
   );
 }

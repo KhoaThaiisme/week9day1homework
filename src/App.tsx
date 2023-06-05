@@ -2,6 +2,7 @@ import Container from 'react-bootstrap/Container';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import './App.css'
 import Header from './components/Header'
+import Logout from './components/Logout';
 import DashBoard from './pages/Dashboard'
 import DetailsPage from './pages/DetailsPage';
 import LoginPage from './pages/LoginPage';
@@ -17,6 +18,7 @@ function App() {
           <Route path='/' element={<DashBoard />}/>
           <Route path='/character/:id' element={ <DetailsPage />}/>
           <Route path='/login' element={ <LoginPage />}/>
+          <Route path="/logout" element={<Logout />} />
           <Route path='/register' element={ <Register />}/>
           <Route path='*' element={ <Navigate to='/' />}/>
         </Routes>

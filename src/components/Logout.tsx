@@ -10,10 +10,12 @@ export default function Logout() {
 
   useEffect(()=>{
     setUser({
+        username:'',
+        token:'',
       loggedIn:false,
-      username:'',
-      token:''
     })
+    localStorage.removeItem('token')
+    localStorage.removeItem('username')
     navigate('/login')
   })
   
